@@ -12,7 +12,6 @@ export const resolvers = {
       if (!user) return null;
       return await User.findById(user.id);
     },
-    _service: () => ({ sdl: 'auth-service' }),
     me: async (_, __, { token }) => {
       if (!token) throw new Error('Not authenticated');
       const decoded = jwt.verify(token.split(' ')[1], process.env.JWT_SECRET);
@@ -90,9 +89,14 @@ export const resolvers = {
     register: async (_, { input }) => {
       try {
         console.log("📌 Registration mutation called!");
-        console.log("Registration input:", input); // Debug log
+        console.log("Registration input:", input);
     
         const { email, password, firstName, lastName, role } = input;
+    
+        // Validate required fields
+        if (!email || !password || !firstName || !lastName || !role) {
+          throw new Error("All fields are required");
+        }
     
         // Check if user already exists
         const existingUser = await User.findOne({ email });
@@ -107,12 +111,16 @@ export const resolvers = {
           password,
           firstName,
           lastName,
-          role,
+          role: role.toUpperCase(), // Ensure role is uppercase
         });
     
         // Save the user
         const savedUser = await user.save();
-        console.log("✅ Saved user:", savedUser); // Debug log
+        console.log("✅ Saved user:", savedUser);
+    
+        if (!savedUser) {
+          throw new Error("Failed to save user");
+        }
     
         // Generate token
         const token = jwt.sign(
@@ -121,7 +129,7 @@ export const resolvers = {
           { expiresIn: "24h" }
         );
     
-        console.log("🔑 Generated Token:", token); // Debug log
+        console.log("🔑 Generated Token:", token);
     
         // Return the response
         return {
@@ -136,7 +144,7 @@ export const resolvers = {
         };
       } catch (error) {
         console.error("❌ Registration error:", error);
-        throw error;
+        throw new Error(error.message || "Registration failed");
       }
     },
 

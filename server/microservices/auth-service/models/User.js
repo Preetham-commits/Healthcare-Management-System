@@ -21,14 +21,30 @@ const userSchema = new mongoose.Schema(
 
 // Pre-save hook to hash password before saving
 userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
+  // Only hash the password if it's modified or new
+  if (!this.isModified("password")) {
+    return next();
+  }
+
   try {
-    const saltRounds = 10;
-    this.password = await bcrypt.hash(this.password, saltRounds);
+    // Generate a salt
+    const salt = await bcrypt.genSalt(10);
+    // Hash the password with the salt
+    this.password = await bcrypt.hash(this.password, salt);
     next();
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    console.error("Error hashing password:", error);
+    next(error);
   }
 });
+
+// Method to compare passwords
+userSchema.methods.comparePassword = async function (candidatePassword) {
+  try {
+    return await bcrypt.compare(candidatePassword, this.password);
+  } catch (error) {
+    throw error;
+  }
+};
 
 export const User = mongoose.model("User", userSchema);
