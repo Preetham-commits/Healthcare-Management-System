@@ -1,9 +1,6 @@
 import { gql } from 'apollo-server-express';
-import { buildSubgraphSchema } from '@apollo/subgraph';
 
-export const typeDefs = gql`
-  extend schema @link(url: "https://specs.apollo.dev/federation/v2.0", import: ["@key", "@shareable", "@external", "@requires"])
-
+export const schema = gql`
   type User {
     id: ID!
     email: String
@@ -27,6 +24,7 @@ export const typeDefs = gql`
   }
 
   type Query {
+    currentUser: User
     me: User
     getUser(id: ID!): User
     getAllUsers: [User]
@@ -55,10 +53,4 @@ export const typeDefs = gql`
     lastName: String
     role: String
   }
-
-  type _Service {
-    sdl: String
-  }
-`;
-
-export const schema = buildSubgraphSchema({ typeDefs }); 
+`; 
