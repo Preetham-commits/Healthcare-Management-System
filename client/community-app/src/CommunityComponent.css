@@ -1,0 +1,74 @@
+/* Community Component Styles */
+.community-container {
+  min-height: 100vh;
+  color: #ffffff;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Navigation Tabs */
+.nav-link-active {
+  background-color: #4ca1af !important;
+  color: #fff !important;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-link-inactive {
+  background-color: #333 !important;
+  color: #bbb !important;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-link-inactive:hover {
+  background-color: #555 !important;
+  color: #fff !important;
+}
+
+/* Dark Form Controls */
+.form-control-dark {
+  background-color: #222 !important;
+  color: #ffffff !important;
+  border: 1px solid #007bff !important;
+  border-radius: 6px;
+  padding: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.form-control-dark:focus {
+  border-color: #4ca1af !important;
+  box-shadow: 0px 0px 5px rgba(76, 161, 175, 0.5);
+}
+
+/* List Group Styling */
+.list-group-item-dark {
+  background-color: #222 !important;
+  border: 1px solid #4ca1af !important;
+  color: #ffffff !important;
+  padding: 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+}
+
+.list-group-item-dark:hover {
+  background-color: #333 !important;
+  border-color: #007bff !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .community-container {
+    padding: 1rem;
+  }
+  
+  .nav-link-active,
+  .nav-link-inactive {
+    font-size: 14px;
+    padding: 8px;
+  }
+}

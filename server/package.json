@@ -1,0 +1,36 @@
+{
+  "name": "healthcare-monitoring-system",
+  "version": "1.0.0",
+  "description": "Healthcare monitoring system for nurse practitioners and patients",
+  "main": "gateway.js",
+  "type": "module",
+  "scripts": {
+    "start:auth": "node microservices/auth-service/auth-service.js",
+    "start:patient": "node microservices/patient-service/patient-service.js",
+    "start:nurse": "node microservices/nurse-service/nurse-service.js",
+    "start:emergency": "node microservices/emergency-service/emergency-service.js",
+    "start:ai": "node microservices/ai-service/ai-service.js",
+    "start:gateway": "node gateway.js",
+    "dev": "nodemon gateway.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/gateway": "^2.7.1",
+    "@apollo/server": "^4.10.0",
+    "@apollo/subgraph": "^2.7.1",
+    "apollo-server-express": "^3.13.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "graphql": "^16.8.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.1.1",
+    "nodemailer": "^6.9.9"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}
